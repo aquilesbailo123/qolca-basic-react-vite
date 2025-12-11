@@ -11,15 +11,70 @@ A modern, production-ready React template built with TypeScript, Vite, and a com
 - **Modern Stack**: React 19 + TypeScript + Vite for fast development
 - **State Management**: Zustand for lightweight, scalable state management
 - **Routing**: React Router DOM v7 with type-safe navigation
-- **Internationalization**: React i18next for multi-language support
 - **Data Fetching**: TanStack Query for server state management
 - **UI Components**: Comprehensive component library with consistent design
 - **Styling System**: CSS variables with light/dark theme support
 - **Form Handling**: Advanced form components with validation
-- **Icons**: React Icons + Phosphor Icons for extensive icon library
-- **File Uploads**: UploadThing integration for file management
-- **Charts**: Chart.js integration for data visualization
 - **Development Tools**: ESLint, TypeScript, Hot Reload
+
+
+## 🤖 Working with AI Agents
+
+This project includes an `AGENTS.md` file with detailed coding conventions for AI assistants.
+
+### New Features: Start with a PRD
+
+Before building new features, create a Product Requirements Document:
+
+```markdown
+# Feature: [Name]
+
+## Problem
+What problem does this solve?
+
+## Solution
+Brief description of the feature.
+
+## Requirements
+- [ ] Requirement 1
+- [ ] Requirement 2
+
+## Technical Approach
+- Components needed
+- API endpoints
+- State management
+
+## Out of Scope
+What this feature does NOT include.
+```
+
+### Changes & Refactors: Create a Plan
+
+For modifications, outline a step-by-step plan:
+
+```markdown
+# Plan: [Task Name]
+
+## Goal
+What we're trying to achieve.
+
+## Steps
+1. [ ] Step 1 - Description
+2. [ ] Step 2 - Description
+3. [ ] Step 3 - Description
+
+## Files Affected
+- `src/components/...`
+- `src/pages/...`
+```
+
+### Tips for AI Collaboration
+
+- **Reference `AGENTS.md`** - Point agents to the conventions file
+- **Be specific** - Include file paths and component names
+- **Review incrementally** - Check changes after each step
+- **Test as you go** - Verify functionality before moving on
+
 
 ## 📁 Project Structure
 
@@ -347,63 +402,6 @@ document.documentElement.setAttribute(
 6. **Query key factories** - Reliable cache invalidation
 7. **Path aliases** - Clean imports with `@/`
 8. **Colocate first** - Move to shared folders only when reused
-
-## 🤖 Working with AI Agents
-
-This project includes an `AGENTS.md` file with detailed coding conventions for AI assistants.
-
-### New Features: Start with a PRD
-
-Before building new features, create a Product Requirements Document:
-
-```markdown
-# Feature: [Name]
-
-## Problem
-What problem does this solve?
-
-## Solution
-Brief description of the feature.
-
-## Requirements
-- [ ] Requirement 1
-- [ ] Requirement 2
-
-## Technical Approach
-- Components needed
-- API endpoints
-- State management
-
-## Out of Scope
-What this feature does NOT include.
-```
-
-### Changes & Refactors: Create a Plan
-
-For modifications, outline a step-by-step plan:
-
-```markdown
-# Plan: [Task Name]
-
-## Goal
-What we're trying to achieve.
-
-## Steps
-1. [ ] Step 1 - Description
-2. [ ] Step 2 - Description
-3. [ ] Step 3 - Description
-
-## Files Affected
-- `src/components/...`
-- `src/pages/...`
-```
-
-### Tips for AI Collaboration
-
-- **Reference `AGENTS.md`** - Point agents to the conventions file
-- **Be specific** - Include file paths and component names
-- **Review incrementally** - Check changes after each step
-- **Test as you go** - Verify functionality before moving on
 
 ## 📄 License
 
