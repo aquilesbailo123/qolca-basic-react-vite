@@ -1,0 +1,22 @@
+.row {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+  
+.row:hover {
+    background-color: var(--color-bg-subtle);
+}
+
+.selected {
+    background-color: var(--color-bg-subtle);
+}
+
+
+/* Border radius for all rows */
+.row td:first-child {
+    border-radius: var(--table-radius, 10px) 0 0 var(--table-radius, 10px);
+}
+
+.row td:last-child {
+    border-radius: 0 var(--table-radius, 10px) var(--table-radius, 10px) 0;
+}

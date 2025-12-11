@@ -1,0 +1,107 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--black-50);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    opacity: 0;
+    animation: fadeIn 0.2s ease forwards;
+}
+
+.overlay.closing {
+    animation: fadeOut 0.2s ease forwards;
+}
+  
+.content {
+    position: relative;
+    background: var(--color-bg);
+    padding: var(--spacing-xl);
+    margin: var(--spacing-xl);
+    border-radius: var(--radius-md);
+    width: 100%;
+    z-index: 100;
+    max-height: 90vh;
+    overflow-y: auto;
+    max-width: 600px;
+    box-shadow: 0 4px 8px var(--black-20);
+    background-color: var(--color-bg);
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+    animation: slideIn 0.25s ease forwards;
+    animation-delay: 0.05s;
+}
+
+.overlay.closing .content {
+    animation: slideOut 0.2s ease forwards;
+}
+
+.closeButton {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xs);
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.closeButton:hover {
+    color: var(--color-text);
+    background-color: var(--color-bg-subtle);
+}
+
+.closeButton:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+    .content {
+        width: 100%;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+}

@@ -1,0 +1,15 @@
+.header {
+    color: var(--color-text);
+}
+
+.row {
+    background-color: var(--color-bg-subtle);
+}
+
+.row th:first-child {
+    border-radius: var(--table-radius, 10px) 0 0 var(--table-radius, 10px);
+}
+
+.row th:last-child {
+    border-radius: 0 var(--table-radius, 10px) var(--table-radius, 10px) 0;
+}

@@ -1,0 +1,25 @@
+.container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: block;
+    /* These are crucial to prevent container from growing */
+    position: relative;
+}
+
+.table {
+    width: 100%; /* Take full width when possible */
+    border-collapse: separate;
+    border-spacing: 0 var(--spacing-xs);
+    /* NOTE this is to counter the border spacing between the header and neighbour components */
+    margin: calc(-1 * var(--spacing-xs)) 0 0 0;
+    table-layout: auto; /* Change to auto to allow flexible sizing */
+    background-color: var(--color-bg);
+}
+
+/* This could be added if needed */
+/* .table-cont th,
+.table-cont td {
+    min-width: 0;
+} */

@@ -1,0 +1,220 @@
+/**
+ * CSS Variables - Design Tokens
+ * 3-Tier System: Primitives → Semantic → Component
+ */
+
+:root {
+    /* =============================================
+       PRIMITIVES - Raw color values (internal use)
+       ============================================= */
+    
+    /* Gray Scale */
+    --gray-50: #fafafa;
+    --gray-100: #efefef;
+    --gray-200: #e0e0e3;
+    --gray-300: #d4d4d8;
+    --gray-400: #a1a1aa;
+    --gray-500: #71717a;
+    --gray-600: #52525b;
+    --gray-700: #3f3f46;
+    --gray-800: #27272a;
+    --gray-900: #18181b;
+
+    /* Brand */
+    --purple-50: #f5f3ff;
+    --purple-500: #6C63FF;
+    --purple-600: #5b52e0;
+    --purple-700: #4c45c2;
+    --teal-500: #2EC4B6;
+    --teal-600: #26a69a;
+    --teal-700: #1f8a80;
+
+    /* Feedback */
+    --red-50: #fef2f2;
+    --red-500: #ef4444;
+    --red-600: #dc2626;
+    --yellow-50: #fefce8;
+    --yellow-500: #eab308;
+    --yellow-600: #ca8a04;
+    --blue-50: #eff6ff;
+    --blue-500: #3b82f6;
+    --blue-600: #2563eb;
+    --green-50: #f0fdf4;
+    --green-500: #22c55e;
+    --green-600: #16a34a;
+
+    /* Opacity utilities */
+    --black-5: rgba(0, 0, 0, 0.05);
+    --black-10: rgba(0, 0, 0, 0.1);
+    --black-15: rgba(0, 0, 0, 0.15);
+    --black-20: rgba(0, 0, 0, 0.2);
+    --black-30: rgba(0, 0, 0, 0.3);
+    --black-50: rgba(0, 0, 0, 0.5);
+    --black-60: rgba(0, 0, 0, 0.6);
+    --white-20: rgba(255, 255, 255, 0.2);
+    --white-50: rgba(255, 255, 255, 0.5);
+    --white-90: rgba(255, 255, 255, 0.9);
+
+    /* =============================================
+       SEMANTIC - Use these in components
+       ============================================= */
+
+    /* Backgrounds */
+    --color-bg: var(--gray-50);
+    --color-bg-subtle: var(--gray-100);
+    --color-bg-muted: var(--gray-200);
+    --color-bg-inverse: var(--gray-900);
+    --color-bg-overlay: rgba(255, 255, 255, 0.8);
+    --color-bg-accent: var(--purple-50);
+
+    /* Text */
+    --color-text: var(--gray-900);
+    --color-text-secondary: var(--gray-600);
+    --color-text-muted: var(--gray-400);
+    --color-text-inverse: var(--gray-50);
+
+    /* Borders */
+    --color-border: var(--gray-200);
+    --color-border-strong: var(--gray-300);
+    --color-border-muted: var(--gray-100);
+
+    /* Primary */
+    --color-primary: var(--purple-500);
+    --color-primary-hover: var(--purple-600);
+    --color-primary-active: var(--purple-700);
+    --color-primary-subtle: var(--purple-50);
+
+    /* Secondary */
+    --color-secondary: var(--teal-500);
+    --color-secondary-hover: var(--teal-600);
+
+    /* Feedback */
+    --color-error: var(--red-500);
+    --color-error-hover: var(--red-600);
+    --color-error-bg: var(--red-50);
+    --color-warning: var(--yellow-500);
+    --color-warning-hover: var(--yellow-600);
+    --color-warning-bg: var(--yellow-50);
+    --color-success: var(--green-500);
+    --color-success-hover: var(--green-600);
+    --color-success-bg: var(--green-50);
+    --color-info: var(--blue-500);
+    --color-info-hover: var(--blue-600);
+    --color-info-bg: var(--blue-50);
+
+    /* =============================================
+       COMPONENT TOKENS
+       ============================================= */
+
+    --color-input-bg: var(--color-bg);
+    --color-input-border: var(--color-border);
+    --color-input-border-focus: var(--color-primary);
+    --color-modal-overlay: var(--black-50);
+
+    /* =============================================
+       SIZING
+       ============================================= */
+    
+    /* Component Sizes */
+    --size-xxs: 16px;
+    --size-xs: 24px;
+    --size-sm: 32px;
+    --size-md: 40px;
+    --size-lg: 48px;
+    --size-xl: 56px;
+    --size-2xl: 64px;
+
+    /* Icon Sizes */
+    --icon-xs: 0.875rem;
+    --icon-sm: 1rem;
+    --icon-md: 1.25rem;
+    --icon-lg: 1.5rem;
+    --icon-xl: 2rem;
+    --icon-2xl: 2.5rem;
+
+    /* Border Widths */
+    --border-width-sm: 1px;
+    --border-width-md: 2px;
+    --border-width-lg: 3px;
+    --border-width-xl: 4px;
+    
+    /* Typography Scale */
+    --text-xs: 0.5rem;
+    --text-sm: 0.75rem;
+    --text-md: 0.875rem;
+    --text-lg: 1rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.75rem;
+    --text-3xl: 2rem;
+    
+    /* Border Radius */
+    --radius-none: 0;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-2xl: 24px;
+    --radius-full: 9999px;
+
+    /* Spacing Scale */
+    --spacing-xxs: 0.1rem;
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.25rem;
+    --spacing-xl: 1.5rem;
+    --spacing-2xl: 1.75rem;
+}
+
+/* =============================================
+   DARK THEME
+   ============================================= */
+
+.dark {
+    /* Backgrounds */
+    --color-bg: var(--gray-900);
+    --color-bg-subtle: var(--gray-800);
+    --color-bg-muted: var(--gray-700);
+    --color-bg-inverse: var(--gray-50);
+    --color-bg-overlay: rgba(24, 24, 27, 0.8);
+    --color-bg-accent: #2B2540;
+
+    /* Text */
+    --color-text: var(--gray-50);
+    --color-text-secondary: var(--gray-300);
+    --color-text-muted: var(--gray-500);
+    --color-text-inverse: var(--gray-900);
+
+    /* Borders */
+    --color-border: var(--gray-700);
+    --color-border-strong: var(--gray-600);
+    --color-border-muted: var(--gray-800);
+
+    /* Primary */
+    --color-primary: #7D73FF;
+    --color-primary-hover: #8a82ff;
+    --color-primary-active: #6C63FF;
+    --color-primary-subtle: #2B2540;
+
+    /* Secondary */
+    --color-secondary: #32D3C3;
+    --color-secondary-hover: #3ee0d0;
+
+    /* Feedback */
+    --color-error: #FF6B81;
+    --color-error-hover: #ff8a9c;
+    --color-error-bg: rgba(255, 107, 129, 0.15);
+    --color-warning: #FFB142;
+    --color-warning-hover: #ffc266;
+    --color-warning-bg: rgba(255, 177, 66, 0.15);
+    --color-success: #3DD68C;
+    --color-success-hover: #5ddda0;
+    --color-success-bg: rgba(61, 214, 140, 0.15);
+    --color-info: #4B9EFF;
+    --color-info-hover: #6eb0ff;
+    --color-info-bg: rgba(75, 158, 255, 0.15);
+
+    /* Component */
+    --color-input-bg: var(--color-bg-subtle);
+    --color-modal-overlay: rgba(0, 0, 0, 0.7);
+}

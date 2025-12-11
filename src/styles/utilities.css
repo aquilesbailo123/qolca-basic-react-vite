@@ -1,0 +1,128 @@
+/**
+ * Utility Classes
+ * Reusable helper classes for layout, typography, and common patterns
+ */
+
+/* ========================================
+   LAYOUT UTILITIES
+   ======================================== */
+
+/* Container - Responsive max-width */
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0.5rem 1rem;
+}
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+        padding: 0;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+/* Centered spinner container */
+.spinner-container {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* ========================================
+   TYPOGRAPHY UTILITIES
+   ======================================== */
+
+.bold {
+    font-weight: 700;
+}
+
+.italic {
+    font-style: italic;
+}
+
+/* Section title with underline accent */
+.section-title {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 25%;
+    width: 50%;
+    height: 3px;
+    background: var(--color-primary);
+    border-radius: 2px;
+    opacity: 0.8;
+}
+
+/* Text button - simple link style */
+.text-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.text-btn:hover {
+    text-decoration: underline;
+}
+
+/* ========================================
+   TOAST NOTIFICATIONS
+   ======================================== */
+
+.toast-error {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    border: 1px solid var(--color-error);
+    text-align: center;
+}
+
+.toast-success {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    border: 1px solid var(--color-success);
+    text-align: center;
+}
+
+/* ========================================
+   FORM UTILITIES
+   ======================================== */
+
+.required-mark {
+    color: var(--color-error);
+}

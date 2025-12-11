@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg);
+    min-width: 300px;
+    max-width: 400px;
+}
+
+.title {
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0;
+}
+
+.message {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}

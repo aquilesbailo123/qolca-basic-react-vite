@@ -1,0 +1,44 @@
+.container {
+    background-color: var(--color-bg);
+}
+  
+.emptyRow {
+    text-align: center;
+}
+  
+.emptyCell {
+    padding: 2rem 1rem;
+    border-bottom: none !important;
+}
+  
+.centeredContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+}
+
+.loading,
+.empty {
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+    min-width: 100%;
+}
+
+td.loading,
+td.empty {
+    width: 100%;
+    color: var(--color-text-secondary);
+    min-width: 100%;
+    font-size: 0.8rem;
+}
+
+td.loading > div,
+td.empty > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}

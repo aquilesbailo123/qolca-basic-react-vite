@@ -1,0 +1,243 @@
+/**
+ * Font Definitions
+ * All @font-face declarations for the application
+ */
+
+/********************************************************
+  HELVETICA
+**********************************************************/
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../assets/fonts/helvetica/Helvetica-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../assets/fonts/helvetica/Helvetica-LightOblique.woff2') format('woff2');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../assets/fonts/helvetica/Helvetica.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../assets/fonts/helvetica/Helvetica-Oblique.woff2') format('woff2');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../assets/fonts/helvetica/Helvetica-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../assets/fonts/helvetica/Helvetica-BoldOblique.woff2') format('woff2');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+/********************************************************
+  MONTSERRAT
+**********************************************************/
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../assets/fonts/montserrat/Montserrat-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../assets/fonts/montserrat/Montserrat-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../assets/fonts/montserrat/Montserrat-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../assets/fonts/montserrat/Montserrat-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/********************************************************
+  RUBIK
+**********************************************************/
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('../assets/fonts/rubik/Rubik-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('../assets/fonts/rubik/Rubik-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('../assets/fonts/rubik/Rubik-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/********************************************************
+  MANROPE
+**********************************************************/
+
+@font-face {
+    font-family: 'Manrope';
+    src: url('../assets/fonts/manrope/Manrope-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Manrope';
+    src: url('../assets/fonts/manrope/Manrope-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Manrope';
+    src: url('../assets/fonts/manrope/Manrope-Semibold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Manrope';
+    src: url('../assets/fonts/manrope/Manrope-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/********************************************************
+  POPPINS
+**********************************************************/
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../assets/fonts/poppins/Poppins-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../assets/fonts/poppins/Poppins-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../assets/fonts/poppins/Poppins-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../assets/fonts/poppins/Poppins-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/********************************************************
+  SOURCE CODE PRO (for code blocks)
+**********************************************************/
+
+@font-face {
+    font-family: 'Source Code Pro';
+    src: url('../assets/fonts/sourcecodepro/SourceCodePro-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Source Code Pro';
+    src: url('../assets/fonts/sourcecodepro/SourceCodePro-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Source Code Pro';
+    src: url('../assets/fonts/sourcecodepro/SourceCodePro-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/********************************************************
+  FONT CONFIGURATION
+**********************************************************/
+
+:root {
+    /* Font family variables */
+    --font-helvetica: Helvetica, Arial, sans-serif;
+    --font-montserrat: Montserrat, Arial, sans-serif;
+    --font-rubik: Rubik, Arial, sans-serif;
+    --font-manrope: Manrope, Arial, sans-serif;
+    --font-poppins: Poppins, Arial, sans-serif;
+    --font-code: 'Source Code Pro', monospace;
+  
+    /* Default font */
+    --font-primary: var(--font-poppins);
+    --line-height-base: 1;
+}
+
+* {
+    font-family: var(--font-primary);
+    line-height: var(--line-height-base);
+}

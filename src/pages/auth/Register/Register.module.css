@@ -1,0 +1,105 @@
+
+.header {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin-bottom: var(--spacing-lg);
+}
+
+.backButton {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  background: var(--black-50);
+  color: var(--color-text-inverse);
+  border: var(--border-width-sm) solid var(--white-20);
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--text-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.backButton:hover {
+  background: var(--black-60);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px var(--black-30);
+}
+
+.logo {
+  width: 120px;
+  margin-bottom: var(--spacing-sm);
+  filter: drop-shadow(0 4px 10px var(--black-20));
+  animation: float 6s ease-in-out infinite;
+}
+
+.cardCont {
+  width: 100%;
+  max-width: 400px;
+  padding: var(--spacing-2xl);
+  border-radius: var(--radius-xl);
+  box-shadow: 0px 10px 30px var(--black-15);
+  background-color: var(--white-90);
+  backdrop-filter: blur(10px);
+}
+
+.cardTitle {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.cardTitle::after {
+  content: '';
+  position: absolute;
+  bottom: calc(-1 * var(--spacing-sm));
+  left: 25%;
+  width: 50%;
+  height: var(--border-width-lg);
+  background: var(--color-primary);
+  border-radius: var(--radius-sm);
+  opacity: 0.8;
+}
+
+.formCont {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.switch {
+  display: flex;
+  gap: var(--spacing-xs);
+  justify-content: center;
+  margin-top: var(--spacing-md);
+}
+
+.textBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-5px) rotate(1deg); }
+  50% { transform: translateY(-10px) rotate(0deg); }
+  75% { transform: translateY(-5px) rotate(-1deg); }
+}

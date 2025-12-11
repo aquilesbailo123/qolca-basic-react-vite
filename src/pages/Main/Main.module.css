@@ -1,0 +1,35 @@
+/* NOTE this might be unnecessary, parent App already has this */
+.container {
+    display: flex;
+    /* Comment this if you want to use Sidebar.tsx */
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--color-bg-subtle);
+    padding-top: var(--size-2xl); /* Match navbar height */
+}
+
+@media (max-width: 768px) {
+    .container {
+        position: relative;
+    }
+}
+
+.contentWrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - var(--size-2xl)); /* Subtract navbar height */
+    /* This is if you want to set Sidebar.css to position fixed */
+    /* width: calc(100% - 250px); */
+    /* margin-left: 250px; */
+    width: 100%;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .contentWrapper {
+        margin-left: 0;
+        width: 100%;
+    }
+}

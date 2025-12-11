@@ -1,0 +1,92 @@
+/* Auth Pages - Clean Professional Design */
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl);
+    background: var(--color-bg-subtle);
+    box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: var(--spacing-md);
+    }
+}
+
+.header {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: var(--spacing-md);
+}
+
+.backButton {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background: transparent;
+    color: var(--color-text-secondary);
+    border: none;
+    padding: var(--spacing-xs) 0;
+    font-size: var(--text-sm);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.backButton:hover {
+    color: var(--color-text);
+}
+
+.card {
+    width: 100%;
+    max-width: 400px;
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg);
+    border: var(--border-width-sm) solid var(--color-border);
+}
+
+@media (max-width: 480px) {
+    .card {
+        padding: var(--spacing-lg);
+    }
+}
+
+.title {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 var(--spacing-lg);
+    text-align: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: var(--spacing-md);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+}
+
+.link {
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
+.link:hover {
+    text-decoration: underline;
+}

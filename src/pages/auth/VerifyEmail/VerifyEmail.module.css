@@ -1,0 +1,8 @@
+/* VerifyEmail specific styles */
+.description {
+    text-align: center;
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+    margin: 0 0 var(--spacing-md);
+    line-height: 1.5;
+}
