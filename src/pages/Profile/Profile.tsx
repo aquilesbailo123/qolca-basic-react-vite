@@ -21,19 +21,13 @@ import styles from './Profile.module.css'
 
 export function Profile() {
     const navigate = useNavigate()
-    const { isLoading, logOut, getUser } = useAuthStore()
+    const { logOut, getUser } = useAuthStore()
     const [activeTab, setActiveTab] = useState('profile')
-    const [userDetails, setUserDetails] = useState<UserDetails | undefined>(undefined)
-    const [profileLoading, setProfileLoading] = useState(true)
+    const [userDetails, setUserDetails] = useState<UserDetails | undefined>(() => getUser() ?? undefined)
     const [loggingOut, setLoggingOut] = useState(false)
     
     useEffect(() => {
-        setProfileLoading(true)
-        setTimeout(() => {
-            const userData = getUser()
-            setUserDetails(userData ?? undefined)
-            setProfileLoading(false)
-        }, 500)
+        setUserDetails(getUser() ?? undefined)
     }, [getUser])
 
     // Sanitize user data before display
@@ -56,15 +50,8 @@ export function Profile() {
         toast.error("Not available yet")
     }
 
-    if (isLoading || profileLoading) {
-        return (
-            <div className={styles.container}>
-                <div className={styles.loading}>
-                    <Spinner size="lg" />
-                    <p>Loading profile...</p>
-                </div>
-            </div>
-        )
+    const handleEditProfile = () => {
+        toast.error('Not available yet')
     }
 
     if (!userDetails || !sanitizedProfile) {
@@ -72,7 +59,7 @@ export function Profile() {
             <div className={styles.container}>
                 <div className={styles.error}>
                     <p>Failed to load profile data</p>
-                    <Button onClick={() => window.location.reload()}>Retry</Button>
+                    <Button onClick={() => navigate(ROUTES.login)}>Go to login</Button>
                 </div>
             </div>
         )
@@ -120,7 +107,7 @@ export function Profile() {
                             className={styles.logoutButton}
                         >
                             {loggingOut ? (
-                                <Spinner size="sm" variant="secondary" />
+                                <Spinner size="sm" variant="primary" />
                             ) : (
                                 <>
                                     <RiLogoutBoxRLine />
@@ -137,7 +124,7 @@ export function Profile() {
                         <section className={styles.section}>
                             <div className={styles.sectionHeader}>
                                 <h1 className={styles.sectionTitle}>Profile Information</h1>
-                                <Button variant="secondary" size="sm">
+                                <Button variant="secondary" size="sm" onClick={handleEditProfile}>
                                     <RiEditLine />
                                     Edit
                                 </Button>

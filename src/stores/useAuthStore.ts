@@ -31,7 +31,14 @@ const storage = {
     getRefreshToken: () => localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN),
     getUser: (): User | null => {
         const data = localStorage.getItem(STORAGE_KEYS.USER);
-        return data ? JSON.parse(data) : null;
+        if (!data) return null;
+
+        try {
+            return JSON.parse(data) as User;
+        } catch {
+            localStorage.removeItem(STORAGE_KEYS.USER);
+            return null;
+        }
     },
     setTokens: (access: string, refresh: string) => {
         localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, access);
@@ -74,6 +81,7 @@ const isTokenExpiringSoon = (token: string): boolean => {
 interface AuthState {
     isLogged: boolean;
     isLoading: boolean;
+    confirmEmailToken: string | null;
 }
 
 interface AuthActions {
@@ -83,7 +91,7 @@ interface AuthActions {
     getUser: () => User | null;
     
     register: (data: SignupRequest) => Promise<boolean>;
-    resendConfirmationEmail: (token: string) => Promise<boolean>;
+    resendConfirmationEmail: (token: string) => Promise<'sent' | 'in_progress' | 'error'>;
     confirmEmail: (code: string) => Promise<boolean>;
     
     requestPasswordReset: (data: ResetPasswordRequest) => Promise<boolean>;
@@ -97,6 +105,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
     // State
     isLogged: isTokenValid(storage.getRefreshToken()),
     isLoading: false,
+    confirmEmailToken: null,
 
     // ----------------------------------------
     // Authentication
@@ -122,29 +131,37 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
             storage.setTokens(data.access, data.refresh);
             storage.setUser(data.user);
-            set({ isLogged: true, isLoading: false });
+            set({ isLogged: true, isLoading: false, confirmEmailToken: null });
 
             return 'success';
         } catch (error: any) {
-            set({ isLoading: false });
-
             // Record failed attempt for rate limiting
             authRateLimiter.recordAttempt(credentials.email);
 
-            if (credentials.googlecode) return 'otp_fail';
+            if (credentials.googlecode) {
+                set({ isLoading: false });
+                return 'otp_fail';
+            }
 
             const errorData: LoginErrorResponse = error?.response?.data;
-            if (!errorData) return 'error';
+            if (!errorData) {
+                set({ isLoading: false });
+                return 'error';
+            }
 
             // Email not confirmed - resend confirmation
+            // Keep loading state active while resending confirmation email
             if (errorData.token?.[0]) {
+                set({ confirmEmailToken: errorData.token[0] });
                 const sent = await get().resendConfirmationEmail(errorData.token[0]);
-                return sent ? 'confirm_email' : 'error';
+                set({ isLoading: false }); // Only stop loading after resend completes
+                return sent === 'error' ? 'error' : 'confirm_email';
             }
 
             // 2FA required
             const errorType = errorData.type?.[0] || errorData.message?.[0];
             if (errorType === 'two_fa_failed') {
+                set({ isLoading: false });
                 onRequire2FA();
                 return 'go2fa';
             }
@@ -152,10 +169,12 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
             // Known error types
             const knownErrors: AuthResult[] = ['wrong_data', 'reset_psw', 'account_block', 'invalid'];
             if (errorType && knownErrors.includes(errorType as AuthResult)) {
+                set({ isLoading: false });
                 toast.error(AUTH_MESSAGES[errorType as keyof typeof AUTH_MESSAGES] || AUTH_MESSAGES.error);
                 return errorType as AuthResult;
             }
 
+            set({ isLoading: false });
             return 'error';
         }
     },
@@ -171,7 +190,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
         }
 
         storage.clear();
-        set({ isLogged: false, isLoading: false });
+        set({ isLogged: false, isLoading: false, confirmEmailToken: null });
     },
 
     getAccessToken: async () => {
@@ -222,6 +241,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
         try {
             await api.post(API_ROUTES.signup, data);
+            // Don't set confirmEmailToken here - user must login to resend confirmation
             toast.success(AUTH_MESSAGES.register_success);
             return true;
         } catch (error: any) {
@@ -236,23 +256,49 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
     },
 
     resendConfirmationEmail: async (token) => {
-        set({ isLoading: true });
-        toast.dismiss();
+        // Check rate limit before attempting resend
+        const rateLimitCheck = authRateLimiter.checkLimit(`resend:${token}`);
+        if (!rateLimitCheck.isAllowed) {
+            const minutes = Math.ceil((rateLimitCheck.retryAfter || 0) / 60);
+            toast.error(`Too many resend attempts. Please try again in ${minutes} minute${minutes !== 1 ? 's' : ''}.`);
+            return 'error';
+        }
 
         try {
             const { data } = await api.post(API_ROUTES.resendEmail, { token });
-            if (!data.Status) throw new Error('Resend failed');
-            toast.success(AUTH_MESSAGES.resent_code);
-            return true;
+            const status = (data as any)?.Status as boolean | undefined;
+            const code = (data as any)?.code as string | undefined;
+
+            if (status) {
+                authRateLimiter.recordAttempt(`resend:${token}`);
+                toast.success(AUTH_MESSAGES.resent_code);
+                return 'sent';
+            }
+
+            if (code === 'Email confirmation in progress') {
+                toast.error('A confirmation email was recently sent. Please wait 5 minutes before requesting another one.');
+                return 'in_progress';
+            }
+
+            authRateLimiter.recordAttempt(`resend:${token}`);
+            toast.error(AUTH_MESSAGES.error);
+            return 'error';
         } catch (error) {
+            authRateLimiter.recordAttempt(`resend:${token}`);
             logger.error('Failed to resend confirmation', error);
-            return false;
-        } finally {
-            set({ isLoading: false });
+            return 'error';
         }
     },
 
     confirmEmail: async (code) => {
+        // Check rate limit before attempting confirmation
+        const rateLimitCheck = authRateLimiter.checkLimit(`verify:${code}`);
+        if (!rateLimitCheck.isAllowed) {
+            const minutes = Math.ceil((rateLimitCheck.retryAfter || 0) / 60);
+            toast.error(`Too many verification attempts. Please try again in ${minutes} minute${minutes !== 1 ? 's' : ''}.`);
+            return false;
+        }
+
         set({ isLoading: true });
         toast.dismiss();
 
@@ -261,17 +307,31 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
                 key: code,
             });
 
-            if (data.access_token && data.refresh_token) {
-                storage.setTokens(data.access_token, data.refresh_token);
-                if (data.user) storage.setUser(data.user);
-                set({ isLogged: true });
-                toast.success(AUTH_MESSAGES.email_confirmed_and_logged_in);
+            // Successful verification - reset rate limit
+            authRateLimiter.reset(`verify:${code}`);
+            set({ confirmEmailToken: null });
+
+            if (data.access && data.refresh) {
+                storage.setTokens(data.access, data.refresh);
+
+                if (data.user) {
+                    storage.setUser(data.user);
+                    set({ isLogged: true, isLoading: false });
+                    toast.success(AUTH_MESSAGES.email_confirmed_and_logged_in);
+                } else {
+                    logger.warn('No user data in confirmation response. Setting logged in but user may need to fetch profile.');
+                    set({ isLogged: true, isLoading: false });
+                    toast.success(AUTH_MESSAGES.email_confirmed_and_logged_in);
+                }
             } else {
+                logger.warn('No tokens in confirmation response');
                 toast.success(AUTH_MESSAGES.email_confirmed);
             }
 
             return true;
         } catch (error) {
+            // Record failed attempt for rate limiting
+            authRateLimiter.recordAttempt(`verify:${code}`);
             logger.error('Email confirmation failed', error);
             toast.error(AUTH_MESSAGES.error);
             return false;

@@ -7,13 +7,16 @@ import { PasswordEyeInput } from '@/components/forms'
 import { Button, Spinner, Card } from '@/components/ui'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { ROUTES } from '@/constants/routes'
+import { logger } from '@/lib/logger'
 import type { ChangePasswordRequest } from '@/types/auth'
 
 import authStyles from '../Auth.module.css'
 
 export function ChangePassword() {
     const navigate = useNavigate()
-    const { changePassword, isLoading } = useAuthStore()
+    const { changePassword } = useAuthStore()
+
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     const [formData, setFormData] = useState<ChangePasswordRequest>({
         old_password: '',
@@ -54,7 +57,7 @@ export function ChangePassword() {
         return { isValid: true, message: '' }
     }
 
-    const handleSubmit = async (e: any) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         const validation = validateForm(formData)
@@ -63,14 +66,23 @@ export function ChangePassword() {
             return
         }
 
+        let didNavigate = false
+
         try {
+            setIsSubmitting(true)
+            // Note: Passwords are NOT sanitized - they're sent as-is to preserve user intent
             const success = await changePassword(formData)
             if (success) {
-                navigate(ROUTES.profile)
+                didNavigate = true
+                navigate(ROUTES.profile, { replace: true })
                 return
             }
         } catch (error) {
-            console.error('Change password error:', error)
+            logger.error('Change password error:', error)
+        } finally {
+            if (!didNavigate) {
+                setIsSubmitting(false)
+            }
         }
     }
 
@@ -116,9 +128,9 @@ export function ChangePassword() {
                         variant="primary"
                         size="md"
                         type="submit"
-                        disabled={isLoading}
+                        disabled={isSubmitting}
                     >
-                        {isLoading ? <Spinner variant="secondary" size="sm" /> : 'Change Password'}
+                        {isSubmitting ? <Spinner variant="secondary" size="sm" /> : 'Change Password'}
                     </Button>
                 </form>
             </Card>

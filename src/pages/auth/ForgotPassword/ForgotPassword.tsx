@@ -7,6 +7,8 @@ import { Card, Button, Spinner } from '@/components/ui'
 import { Input } from '@/components/forms'
 import { ROUTES } from '@/constants/routes'
 import { useAuthStore } from '@/stores/useAuthStore'
+import { sanitizeEmail } from '@/lib/sanitize'
+import { logger } from '@/lib/logger'
 import type { ResetPasswordRequest } from '@/types/auth'
 
 import authStyles from '../Auth.module.css'
@@ -24,7 +26,7 @@ export function ForgotPassword() {
         if (isLogged) {
             navigate(ROUTES.home);
         }
-    }, [isLogged]);
+    }, [isLogged, navigate]);
 
     const handleFormDataChange = (key: string, value: string) => {
         setFormData((prevState: ResetPasswordRequest) => ({
@@ -49,7 +51,7 @@ export function ForgotPassword() {
         return { isValid: true, message: '' }
     }
 
-    const onSubmit = async (e: any) => {
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const validation = validateForm(formData)
@@ -58,14 +60,20 @@ export function ForgotPassword() {
             return;
         }
 
+        // Sanitize inputs before sending to API
+        const sanitizedData: ResetPasswordRequest = {
+            email: sanitizeEmail(formData.email),
+        }
+
         try {
-            const status: boolean = await requestPasswordReset(formData);
+            const status: boolean = await requestPasswordReset(sanitizedData);
             if (status) {
                 navigate(ROUTES.login);
                 return;
             }
-        } catch (e) {
-            toast.error('An error occurred')
+        } catch (error) {
+            toast.error('An error occurred while requesting password reset')
+            logger.error('Password reset request error:', error)
         }
     }
 
@@ -74,7 +82,7 @@ export function ForgotPassword() {
             <div className={authStyles.header}>
                 <button
                     className={authStyles.backButton}
-                    onClick={() => navigate('/login')}
+                    onClick={() => navigate(ROUTES.login)}
                     aria-label="Back to login"
                 >
                     <IoChevronBack /> Back to Login

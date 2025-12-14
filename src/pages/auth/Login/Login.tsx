@@ -7,6 +7,8 @@ import { Input, PasswordEyeInput } from '@/components/forms'
 import { Button, Spinner, Card } from '@/components/ui'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { ROUTES } from '@/constants/routes'
+import { sanitizeEmail } from '@/lib/sanitize'
+import { logger } from '@/lib/logger'
 import type { LoginRequest, AuthResult } from '@/types/auth'
 
 import authStyles from '../Auth.module.css'
@@ -24,7 +26,7 @@ export function Login() {
         if (isLogged) {
             navigate(ROUTES.home)
         }
-    }, [isLogged])
+    }, [isLogged, navigate])
 
     const handleFormDataChange = (key: string, value: string) => {
         setFormData((prevState: LoginRequest) => ({
@@ -49,7 +51,7 @@ export function Login() {
         return { isValid: true, message: '' }
     }
 
-    const handleFormSubmit = async (e: any) => {
+    const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         const validation = validateForm(formData)
@@ -58,8 +60,14 @@ export function Login() {
             return
         }
 
+        // Sanitize inputs before sending to API
+        const sanitizedData: LoginRequest = {
+            email: sanitizeEmail(formData.email),
+            password: formData.password, // Don't sanitize passwords
+        }
+
         try {
-            const status: AuthResult = await logIn(formData, () => console.log('2FA required'));
+            const status: AuthResult = await logIn(sanitizedData, () => logger.info('2FA required'));
 
             if (status === 'success') {
                 toast.success('Login successful')
@@ -73,8 +81,8 @@ export function Login() {
 
             return
         } catch (error) {
-            toast.error('error')
-            console.error('Login error:', error)
+            toast.error('An error occurred during login')
+            logger.error('Login error:', error)
         }
     }
 

@@ -50,7 +50,7 @@ export function ProtectedRoute({
     const { isLogged, isLoading } = useAuthStore();
 
     // Show loading state while checking authentication
-    if (isLoading) {
+    if (isLoading && !isLogged) {
         return (
             <div className={styles.loadingContainer}>
                 <Spinner size="lg" />

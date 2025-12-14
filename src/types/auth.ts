@@ -87,7 +87,9 @@ export interface TokenResponse {
 
 export interface ConfirmEmailResponse {
     detail: string;
-    access_token?: string;
-    refresh_token?: string;
+    access?: string;
+    refresh?: string;
     user?: User;
+    access_expiration?: string;
+    refresh_expiration?: string;
 }
