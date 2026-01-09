@@ -89,11 +89,11 @@ interface AuthActions {
     logOut: () => Promise<void>;
     getAccessToken: () => Promise<string | undefined>;
     getUser: () => User | null;
-    
+
     register: (data: SignupRequest) => Promise<boolean>;
     resendConfirmationEmail: (token: string) => Promise<'sent' | 'in_progress' | 'error'>;
     confirmEmail: (code: string) => Promise<boolean>;
-    
+
     requestPasswordReset: (data: ResetPasswordRequest) => Promise<boolean>;
     resetPassword: (data: ResetPasswordConfirmRequest) => Promise<boolean>;
     changePassword: (data: ChangePasswordRequest) => Promise<boolean>;
@@ -283,8 +283,15 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
             authRateLimiter.recordAttempt(`resend:${token}`);
             toast.error(AUTH_MESSAGES.error);
             return 'error';
-        } catch (error) {
+        } catch (error: any) {
             authRateLimiter.recordAttempt(`resend:${token}`);
+
+            const errorData = error?.response?.data;
+            if (errorData?.code === 'Email confirmation in progress') {
+                toast.error('A confirmation email was recently sent. Please wait 5 minutes before requesting another one.');
+                return 'in_progress';
+            }
+
             logger.error('Failed to resend confirmation', error);
             return 'error';
         }
